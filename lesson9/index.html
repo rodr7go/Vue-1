@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Styde.net | Curso de Vue.JS</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1>Hello World</h1>
+
+			<table class="table table-striped">
+				<tr>
+					<th>Categoría</th>
+					<th>Nota</th>
+					<th width="50px">&nbsp;</th>
+				</tr>
+				<tr v-for="note in notes">
+					<template v-if="! note.editing">
+						<td>{{note.category_id | category }}</td>
+						<td>{{note.note}}</td>
+						<td>
+							<a href="#" @click="editNote(note)"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+							<a href="#" @click="deleteNote(note)">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
+						</td>
+					</template>
+					<template v-else>
+						<td><input type="text" v-model="note.category_id" class="form-control"></td>
+						<td><input type="text" v-model="note.note" class="form-control"></td>
+						<td><a href="#" @click="updateNote(note)"><span class="glyphicon glyphicon-ok"></span></a></td>
+					</template>
+				</tr>
+			</table>
+		</div>	
+	</div>
+	<script src="vue.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>
