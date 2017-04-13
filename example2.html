@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Styde.net | Curso de VueJS</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<script src="vue.js"></script>
+
+	</head>
+	<body>
+
+	<div id="app" class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<template v-if="name">
+				<h1>
+					{{gender == 'm' ? 'Bienvenido' : 'Bienvenida'}}, {{ name }}
+				</h1>
+				<p>Espero que disfrutes tu visita</p>
+				<p>Tu nombre al revés es: {{ name.split('').reverse().join('') }}</p>
+			</template>
+			<p v-else class="text-danger" style="font-size: 1.5em;">Por favor escribe tu nombre:</p>
+			<form @submit.prevent="signUp(false, $event)">
+				<select id="gender" v-model="gender" class="form-control">
+					<option value="">Selecciona</option>
+					<option value="m">Masculino</option>
+					<option value="f">Femenino</option>
+				</select>
+				<input type="text" v-model="name" class="form-control">
+
+				<p>Cuantos años de experiencia tienes con PHP?</p>
+				<p>
+					Respuesta: <strong>{{ years_php }}</strong>
+					<button type="button" class="btn" @click="years_php ++">+</button>
+					<button type="button" class="btn" @click="subs()">-</button>
+				</p>
+				
+				<hr>
+
+				<p v-show="name">
+					<button class="btn btn-primary" type="submit">Registrate</button>
+					<button class="btn btn-primary" type="submit" @click="signUp(true, $event)">Registrate y sal del sistma</button>
+				</p>
+			</form>
+			<p v-if="name == ''" class="alert alert-danger">
+				Este campo es obligatorio
+			</p>
+			<!-- <p v-if="name.length < 2 " class="alert alert-danger">El nombre no es valido</p> -->
+
+			<hr>
+
+			<pre>{{ $data | json }}</pre>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		new Vue({
+			el: "#app",
+			data: {
+				name: "",
+				gender: '',
+				years_php: 0
+			},
+			methods: {
+				signUp: function (logout, event){
+					event.preventDefault();
+					alert(this.name + ' por favor espera mientras te registramos!!!');
+
+					if(logout){
+						alert('Saliendo del sistema...')
+					}
+				},
+				subs: function(){
+					if(this.years_php > 0){
+						this.years_php --
+					}
+				}
+			}
+		});
+	</script>
+	</body>
+</html>
